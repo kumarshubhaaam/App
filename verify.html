@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Verification</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+<div class="section-wrapper">
+  <h1 class="section-title">Verify Access</h1>
+  <button id="startTask">Complete Task to Unlock</button>
+</div>
+
+<script>
+  const params = new URLSearchParams(window.location.search);
+  if (params.get("verified") === "1") {
+    const expiry = new Date().getTime() + 24 * 60 * 60 * 1000;
+    localStorage.setItem("alpha_access", expiry.toString());
+    window.location.href = "index.html";
+  }
+
+  document.getElementById("startTask").addEventListener("click", async () => {
+    const longURL = "https://alphalinkz.netlify.app/verify.html?verified=1";
+    const apiToken = "5fb415cd7e6b42fd8ba25416066c25f44c85587b";
+    const apiUrl = `https://linkshortify.com/api?api=${apiToken}&url=${encodeURIComponent(longURL)}`;
+
+    try {
+      const res = await fetch(apiUrl);
+      const result = await res.json();
+
+      if (result.shortenedUrl) {
+        window.location.href = result.shortenedUrl;
+      } else {
+        alert("Shortener error: " + result.message);
+      }
+    } catch (e) {
+      alert("Fetch failed: " + e.message);
+    }
+  });
+</script>
+</body>
+</html>
