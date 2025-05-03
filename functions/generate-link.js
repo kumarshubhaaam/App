@@ -5,7 +5,7 @@ const path = require('path');
 exports.handler = async () => {
   const uniqueCode = Math.random().toString(36).substring(2, 10);
   const longUrl = `https://alphalinkz.netlify.app/posts.html?key=${uniqueCode}`;
-  const apiToken = 'YOUR_LINKSHORTIFY_API_TOKEN';
+  const apiToken = '5fb415cd7e6b42fd8ba25416066c25f44c85587b';
   const apiUrl = `https://linkshortify.com/api?api=${apiToken}&url=${encodeURIComponent(longUrl)}&format=text`;
 
   try {
