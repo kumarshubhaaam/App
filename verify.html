@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Task Verification</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <h2>Complete the Task to Continue</h2>
+    <button onclick="startVerification()">Verify Now</button>
+    <div id="linkSection" style="display:none;">
+      <p>Click below after task completion:</p>
+      <button id="accessBtn" onclick="window.location.href = shortLink">Access Website</button>
+    </div>
+  </div>
+
+  <script>
+    let shortLink = "";
+    async function startVerification() {
+      const res = await fetch('/.netlify/functions/generate-link');
+      const data = await res.json();
+      shortLink = data.shortUrl;
+      document.getElementById('accessBtn').setAttribute('onclick', `window.location.href='${shortLink}'`);
+      document.getElementById('linkSection').style.display = 'block';
+    }
+  </script>
+</body>
+</html>
