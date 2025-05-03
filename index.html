@@ -1,30 +1,28 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <meta name="theme-color" content="#1c1c1c">
-  <title>Alpha Linkz</title>
-  <link href="style.css" rel="stylesheet">
+  <meta charset="UTF-8">
+  <title>Alpha Linkz - Shortener Test</title>
 </head>
-<body style="display: none;">
+<body style="background:#111;color:#fff;font-family:sans-serif;text-align:center;padding:40px;">
 
-<canvas id="particles-bg"></canvas>
-<header><div class="logo"><span>ALPHA</span> <span>LINKZ</span></div></header>
-<div class="section-wrapper">
-  <h1 class="section-title">All Videos</h1>
-  <div id="countdown"></div>
-</div>
-<section id="video-posts" class="grid">
-  <div class="card">
-    <img src="assets/dummy-thumbnail.jpg" alt="Dummy Video">
-    <h3>Sample YouTube Video</h3>
-    <button onclick="window.open('https://youtube.com/watch?v=dQw4w9WgXcQ', '_blank')">Watch</button>
-  </div>
-</section>
-<div class="copyright-footer">&copy; 2025 Alpha Linkz. All rights reserved.</div>
+  <h1>Generate Short Link</h1>
+  <button onclick="generateShortLink()">Create Short URL</button>
+  <p id="result" style="margin-top:20px;"></p>
 
-<script src="verify-access.js"></script>
-<script src="particles.js"></script>
+  <script>
+    function generateShortLink() {
+      const longURL = 'https://alphalinkz.netlify.app';
+      fetch(`/generate-link?url=${encodeURIComponent(longURL)}`)
+        .then(res => res.text())
+        .then(shortUrl => {
+          document.getElementById('result').innerHTML = `Shortened URL: <a href="${shortUrl}" target="_blank">${shortUrl}</a>`;
+        })
+        .catch(err => {
+          document.getElementById('result').textContent = 'Error generating short link.';
+        });
+    }
+  </script>
+
 </body>
 </html>
