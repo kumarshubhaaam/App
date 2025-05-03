@@ -1,28 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Alpha Linkz - Shortener Test</title>
+  <meta http-equiv="refresh" content="0;url=verify.html">
+  <title>Redirecting...</title>
 </head>
-<body style="background:#111;color:#fff;font-family:sans-serif;text-align:center;padding:40px;">
-
-  <h1>Generate Short Link</h1>
-  <button onclick="generateShortLink()">Create Short URL</button>
-  <p id="result" style="margin-top:20px;"></p>
-
-  <script>
-    function generateShortLink() {
-      const longURL = 'https://alphalinkz.netlify.app';
-      fetch(`/generate-link?url=${encodeURIComponent(longURL)}`)
-        .then(res => res.text())
-        .then(shortUrl => {
-          document.getElementById('result').innerHTML = `Shortened URL: <a href="${shortUrl}" target="_blank">${shortUrl}</a>`;
-        })
-        .catch(err => {
-          document.getElementById('result').textContent = 'Error generating short link.';
-        });
-    }
-  </script>
-
+<body>
+  <p>Redirecting to verification page...</p>
 </body>
 </html>
