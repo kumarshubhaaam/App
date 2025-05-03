@@ -1,28 +1,36 @@
 const fetch = require('node-fetch');
+const fs = require('fs');
+const path = require('path');
 
-exports.handler = async (event) => {
-  const api_token = '5fb415cd7e6b42fd8ba25416066c25f44c85587b';
-
-  const long_url = event.queryStringParameters.url || 'https://alphalinkz.netlify.app';
-  const encoded_url = encodeURIComponent(long_url);
-  const api_url = `https://linkshortify.com/api?api=${api_token}&url=${encoded_url}&format=text`;
+exports.handler = async () => {
+  const uniqueCode = Math.random().toString(36).substring(2, 10);
+  const longUrl = `https://alphalinkz.netlify.app/posts.html?key=${uniqueCode}`;
+  const apiToken = 'YOUR_LINKSHORTIFY_API_TOKEN';
+  const apiUrl = `https://linkshortify.com/api?api=${apiToken}&url=${encodeURIComponent(longUrl)}&format=text`;
 
   try {
-    const response = await fetch(api_url);
-    const shortUrl = await response.text();
+    const res = await fetch(apiUrl);
+    const shortUrl = await res.text();
+
+    // Save code to keys.json
+    const keysPath = path.resolve(__dirname, '..', 'keys.json');
+    let keys = [];
+
+    if (fs.existsSync(keysPath)) {
+      keys = JSON.parse(fs.readFileSync(keysPath));
+    }
+
+    keys.push(uniqueCode);
+    fs.writeFileSync(keysPath, JSON.stringify(keys));
 
     return {
       statusCode: 200,
-      headers: {
-        "Content-Type": "text/plain",
-        "Access-Control-Allow-Origin": "*"
-      },
-      body: shortUrl
+      body: JSON.stringify({ shortUrl })
     };
-  } catch (error) {
+  } catch (e) {
     return {
       statusCode: 500,
-      body: `Error: ${error.message}`
+      body: JSON.stringify({ error: 'Failed to create link' })
     };
   }
 };
