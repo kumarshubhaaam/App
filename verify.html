@@ -2,158 +2,53 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Task Verification</title>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet"/>
-  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet"/>
+  <title>Verify Access</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; }
     body {
-      font-family: 'Poppins', sans-serif;
-      background: #000;
-      color: #fff;
-      overflow-x: hidden;
-      position: relative;
+      background: #121212;
+      color: white;
+      font-family: Arial, sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
     }
-    #particles-js {
-      position: fixed;
-      width: 100%;
-      height: 100%;
-      z-index: 0;
+    h1 {
+      font-size: 2rem;
+      margin-bottom: 1rem;
     }
-    .container {
-      position: relative;
-      z-index: 1;
-      max-width: 500px;
-      margin: 60px auto;
-      background: rgba(255, 255, 255, 0.05);
-      border-radius: 20px;
-      padding: 30px 20px;
-      text-align: center;
-      box-shadow: 0 0 20px rgba(255, 255, 255, 0.05);
-    }
-    h2 {
-      font-size: 24px;
-      font-weight: 700;
-      margin-bottom: 20px;
-    }
-    iframe {
-      width: 100%;
-      height: 240px;
-      border-radius: 15px;
+    button {
+      padding: 0.8rem 2rem;
+      font-size: 1rem;
+      background: #00ffc8;
       border: none;
-      margin-bottom: 30px;
-    }
-    p {
-      margin-bottom: 15px;
-      font-size: 15px;
-      color: #ccc;
-    }
-    .notice {
-      border-radius: 10px;
-      background: rgba(255, 255, 255, 0.05);
-      padding: 15px;
-      font-size: 14px;
-      color: #ccc;
-      margin: 20px 0;
-    }
-    .btn {
-      display: block;
-      width: 90%;
-      margin: 10px auto;
-      padding: 12px;
-      font-size: 16px;
-      font-weight: 600;
-      background: linear-gradient(135deg, #a18cd1, #fbc2eb);
-      color: #000;
-      border: none;
-      border-radius: 25px;
+      border-radius: 8px;
       cursor: pointer;
-      transition: transform 0.2s ease;
-    }
-    .btn:hover {
-      transform: scale(1.03);
+      font-weight: bold;
     }
   </style>
 </head>
 <body>
-  <div id="particles-js"></div>
+  <h1>Verify to Continue</h1>
+  <button onclick="verify()">Verify Now</button>
 
-  <div class="container" data-aos="zoom-in">
-    <h2>⚡ Must Watch Tutorial ⚡</h2>
-    <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ" allowfullscreen></iframe>
-
-    <h2>Task Verification</h2>
-    <p>Please verify your task by clicking the button below to continue with the process.</p>
-
-    <div class="notice">Generate key to view all contents of this site for next 24 hour.</div>
-
-    <button class="btn" onclick="verifyTask()">Click Here To Verify Task</button>
-    <button class="btn" onclick="window.open('https://youtu.be/dQw4w9WgXcQ', '_blank')">How To Open Link?</button>
-  </div>
-
-  <!-- Particles.js -->
-  <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
   <script>
-    particlesJS("particles-js", {
-      particles: {
-        number: { value: 80 },
-        color: { value: "#ffffff" },
-        shape: { type: "circle" },
-        opacity: { value: 0.3 },
-        size: { value: 3 },
-        line_linked: { enable: true, color: "#ffffff", opacity: 0.1 },
-        move: { enable: true, speed: 1 }
-      },
-      interactivity: {
-        events: { onhover: { enable: true, mode: "repulse" } }
-      }
-    });
-  </script>
-
-  <!-- AOS animation -->
-  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-  <script>
-    AOS.init();
-  </script>
-
-  <!-- Task Verification Logic -->
-  <script>
-    async function verifyTask() {
-      const token = "5fb415cd7e6b42fd8ba25416066c25f44c85587b"; // Replace with your LinkShortify token
-      const redirectUrl = window.location.origin + "/?key=" + generateKey();
-
-      try {
-        const res = await fetch("https://linkshortify.com/api", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            token,
-            url: redirectUrl,
-            alias: "",
-            type: "direct",
-          }),
-        });
-
-        const data = await res.json();
-        if (data.shortenedUrl) {
-          // Save the key locally for 24h
-          localStorage.setItem("access_key", redirectUrl.split("key=")[1]);
-          localStorage.setItem("access_time", Date.now());
-          window.location.href = data.shortenedUrl;
-        } else {
-          alert("Shorten failed: " + data.message || "Unknown error.");
-        }
-      } catch (err) {
-        alert("Error: " + err.message);
-      }
-    }
-
-    function generateKey() {
-      const chars = "abcdefghijklmnopqrstuvwxyz0123456789";
-      let key = "";
-      for (let i = 0; i < 10; i++) key += chars[Math.floor(Math.random() * chars.length)];
-      return key;
+    function verify() {
+      const destination = encodeURIComponent("https://alphalinkz.netlify.app?key=" + Date.now());
+      const apiToken = "5fb415cd7e6b42fd8ba25416066c25f44c85587b";
+      fetch(`https://linkshortify.com/api?api=${apiToken}&url=${destination}&alias=verifyaccess`)
+        .then(res => res.json())
+        .then(data => {
+          if (data.shortenedUrl) {
+            window.location.href = data.shortenedUrl;
+          } else {
+            alert("Error: " + data.message);
+          }
+        })
+        .catch(() => alert("Something went wrong. Please try again."));
     }
   </script>
 </body>
