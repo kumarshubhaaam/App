@@ -80,34 +80,24 @@
       <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ" frameborder="0" allowfullscreen></iframe>
 
       <h2>Task Verification</h2>
-      <p>Please verify your task by clicking the button below to continue with the process.</p>
+      <p>Click the button below to verify and unlock access for 24 hours.</p>
 
       <div class="notice">
         <strong>Notice:</strong><br />
-        Generate key to view all contents of this site for next 24 hours.
+        You will be redirected automatically after verification.
       </div>
 
-      <button class="btn" onclick="verify()">Click Here To Verify Task</button>
-      <button class="btn secondary" onclick="alert('1. Click verify\n2. Complete the redirection\n3. Return to access content')">How To Open Link?</button>
+      <button class="btn" onclick="verify()">Click To Verify</button>
+      <button class="btn secondary" onclick="alert('1. Click verify\n2. Complete tutorial\n3. Access content for 24 hours')">How To Open Link?</button>
     </div>
   </div>
 
   <script>
     function verify() {
-      const destination = encodeURIComponent("https://alphalinkz.netlify.app?key=" + Date.now());
-      const apiToken = "5fb415cd7e6b42fd8ba25416066c25f44c85587b";
-      const randomAlias = "verify" + Math.floor(Math.random() * 100000);
-
-      fetch(`https://linkshortify.com/api?api=${apiToken}&url=${destination}&alias=${randomAlias}`)
-        .then(res => res.json())
-        .then(data => {
-          if (data.shortenedUrl) {
-            window.location.href = data.shortenedUrl;
-          } else {
-            alert("Error: " + data.message);
-          }
-        })
-        .catch(() => alert("Something went wrong. Please try again."));
+      const key = Date.now();
+      localStorage.setItem('accessKey', key);
+      localStorage.setItem('keyExpiry', Date.now() + 24 * 60 * 60 * 1000); // 24 hrs
+      window.location.href = "index.html";
     }
   </script>
 </body>
