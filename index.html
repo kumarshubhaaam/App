@@ -3,238 +3,110 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <meta name="theme-color" content="#1c1c1c">
-  <title>Daily Dose</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <title>AlphaLinkz - Posts</title>
   <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; }
     body {
-      background: #121212;
-      color: #fff;
-      font-family: 'Inter', sans-serif;
-      overflow-x: hidden;
-    }
-    header {
-      width: 100%;
-      padding: 1rem;
-      background: #1c1c1c;
-      text-align: center;
-      position: sticky;
-      top: 0;
-      z-index: 100;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.5);
-    }
-    .logo {
-      font-size: 1.8rem;
-      font-weight: 700;
+      margin: 0;
+      padding: 20px;
+      font-family: 'Poppins', sans-serif;
+      background: #111;
       color: #fff;
     }
-    .logo span:first-child { color: #00ffc8; }
-    .section-wrapper {
-      padding: 2rem 1rem 0 1rem;
+
+    h1 {
       text-align: center;
+      margin-bottom: 30px;
+      color: #ffb347;
     }
-    .section-title {
-      font-size: 2rem;
-      font-weight: 700;
-      margin-bottom: 1rem;
-      position: relative;
-      display: inline-block;
-      padding-bottom: 0.5rem;
-    }
-    .section-title::after {
-      content: '';
-      position: absolute;
-      width: 50%;
-      height: 3px;
-      background: #00ffc8;
-      left: 25%;
-      bottom: 0;
-      border-radius: 5px;
-    }
+
     .grid {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-      gap: 1.5rem;
-      padding: 2rem;
+      gap: 20px;
     }
+
     .card {
       background: #1c1c1c;
+      padding: 15px;
       border-radius: 15px;
-      box-shadow: 0 0 10px rgba(0,255,200,0.2);
-      transition: transform 0.3s ease, box-shadow 0.3s ease, border 0.3s ease;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      align-items: center;
-      padding: 1rem;
-      opacity: 0;
-      transform: translateY(50px);
-      border: 2px solid transparent;
+      box-shadow: 0 0 20px rgba(255, 255, 255, 0.05);
+      transition: transform 0.3s ease;
     }
-    .card.visible {
-      opacity: 1;
-      transform: translateY(0);
-      transition: opacity 0.6s ease, transform 0.6s ease;
-    }
-    .card img {
-      width: 100%;
-      height: 180px;
-      object-fit: cover;
-      border-radius: 10px;
-      margin-bottom: 1rem;
-    }
-    .card h3 {
-      font-size: 1.3rem;
-      margin-bottom: 1rem;
-      text-align: center;
-    }
-    .card button {
-      width: 100%;
-      padding: 0.8rem;
-      background: #00ffc8;
-      border: none;
-      border-radius: 50px;
-      color: #000;
-      font-weight: bold;
-      font-size: 1rem;
-      cursor: pointer;
-      transition: background 0.3s ease, box-shadow 0.3s ease;
-    }
-    .card button:hover {
-      background: #00cfa0;
-      box-shadow: 0 0 10px #00ffc8, 0 0 20px #00ffc8;
-    }
+
     .card:hover {
       transform: translateY(-10px);
-      box-shadow: 0 0 20px rgba(0,255,200,0.7), 0 0 30px rgba(0,255,200,0.5);
-      border: 2px solid #00ffc8;
     }
-    .copyright-footer {
-      text-align: center;
-      padding: 1rem;
-      font-size: 0.9rem;
-      background: #1c1c1c;
-      margin-top: 2rem;
-    }
-    #particles-bg {
-      position: fixed;
-      top: 0;
-      left: 0;
+
+    .card img {
       width: 100%;
-      height: 100%;
-      z-index: -1;
-      background: #121212;
+      height: 170px;
+      object-fit: cover;
+      border-radius: 10px;
+    }
+
+    .card h3 {
+      margin-top: 10px;
+      font-size: 18px;
+    }
+
+    .card a {
+      display: inline-block;
+      margin-top: 10px;
+      padding: 8px 15px;
+      background: linear-gradient(to right, #ff5f6d, #ffc371);
+      color: white;
+      text-decoration: none;
+      border-radius: 20px;
+      font-weight: bold;
     }
   </style>
-  <script>
-    const expiry = localStorage.getItem("verified_access");
-    if (!expiry || Date.now() > parseInt(expiry)) {
-      window.location.href = "/verify.html";
-    }
-  </script>
 </head>
-
 <body>
-<canvas id="particles-bg"></canvas>
-
-<header>
-  <div class="logo"><span>DAILY</span><span>DOSE</span></div>
-</header>
-
-<div class="section-wrapper">
-  <h1 class="section-title">All Videos</h1>
-</div>
-
-<section class="grid">
-  <div class="card">
-    <img src="https://placehold.co/300x180" alt="Video 1" />
-    <h3>Funny Office Prank</h3>
-    <button onclick="window.open('https://t.me/example1', '_blank')">Watch on Telegram</button>
+  <h1>Exclusive Videos</h1>
+  <div class="grid" id="postContainer">
+    <!-- Dynamic posts will go here -->
   </div>
-  <div class="card">
-    <img src="https://placehold.co/300x180" alt="Video 2" />
-    <h3>Morning Motivation</h3>
-    <button onclick="window.open('https://streamtape.com/v/Dq2R4mxwdzhkgp7/A_Geor.mp4', '_blank')">Watch on Telegram</button>
-  </div>
-</section>
 
-<div class="copyright-footer">
-  &copy; 2025 Daily Dose. All rights reserved.
-</div>
+  <script>
+    // Block access if "key" is missing in URL
+    const urlParams = new URLSearchParams(window.location.search);
+    const accessKey = urlParams.get('key');
 
-<script>
-  // Particle animation
-  const canvas = document.getElementById('particles-bg');
-  const ctx = canvas.getContext('2d');
-  let particles = [];
-
-  function resize() {
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
-  }
-  window.addEventListener('resize', resize);
-  resize();
-
-  class Particle {
-    constructor() {
-      this.x = Math.random() * canvas.width;
-      this.y = Math.random() * canvas.height;
-      this.radius = Math.random() * 2;
-      this.speedX = (Math.random() - 0.5) * 0.7;
-      this.speedY = (Math.random() - 0.5) * 0.7;
+    if (!accessKey) {
+      window.location.href = "verify.html";
     }
-    draw() {
-      ctx.beginPath();
-      ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
-      ctx.fillStyle = 'white';
-      ctx.fill();
-    }
-    update() {
-      this.x += this.speedX;
-      this.y += this.speedY;
-      if (this.x < 0 || this.x > canvas.width) this.speedX *= -1;
-      if (this.y < 0 || this.y > canvas.height) this.speedY *= -1;
-    }
-  }
 
-  function initParticles() {
-    particles = [];
-    for (let i = 0; i < 150; i++) {
-      particles.push(new Particle());
-    }
-  }
+    // Dummy posts data
+    const posts = [
+      {
+        title: "Sample Video 1",
+        thumbnail: "https://via.placeholder.com/300x170.png?text=Video+1",
+        link: "https://example.com/video1"
+      },
+      {
+        title: "Sample Video 2",
+        thumbnail: "https://via.placeholder.com/300x170.png?text=Video+2",
+        link: "https://example.com/video2"
+      },
+      {
+        title: "Sample Video 3",
+        thumbnail: "https://via.placeholder.com/300x170.png?text=Video+3",
+        link: "https://example.com/video3"
+      }
+    ];
 
-  function animateParticles() {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    particles.forEach(p => {
-      p.update();
-      p.draw();
+    const container = document.getElementById("postContainer");
+
+    posts.forEach(post => {
+      const card = document.createElement("div");
+      card.className = "card";
+      card.innerHTML = `
+        <img src="${post.thumbnail}" alt="${post.title}">
+        <h3>${post.title}</h3>
+        <a href="${post.link}" target="_blank">Watch Video</a>
+      `;
+      container.appendChild(card);
     });
-    requestAnimationFrame(animateParticles);
-  }
-
-  initParticles();
-  animateParticles();
-
-  // Scroll reveal
-  function triggerScrollAnimation() {
-    const cards = document.querySelectorAll('.card');
-    function checkScroll() {
-      const triggerBottom = window.innerHeight * 0.9;
-      cards.forEach(card => {
-        const cardTop = card.getBoundingClientRect().top;
-        if (cardTop < triggerBottom) {
-          card.classList.add('visible');
-        } else {
-          card.classList.remove('visible');
-        }
-      });
-    }
-    window.addEventListener('scroll', checkScroll);
-    checkScroll();
-  }
-  triggerScrollAnimation();
-</script>
+  </script>
 </body>
 </html>
