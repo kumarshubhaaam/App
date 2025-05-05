@@ -2,28 +2,48 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Task Verification</title>
-  <link rel="stylesheet" href="style.css">
-</head>
-<body>
-  <div class="container">
-    <h2>Complete the Task to Continue</h2>
-    <button onclick="startVerification()">Verify Now</button>
-    <div id="linkSection" style="display:none;">
-      <p>Click below after task completion:</p>
-      <button id="accessBtn" onclick="window.location.href = shortLink">Access Website</button>
-    </div>
-  </div>
-
+  <title>Verifying Access...</title>
   <script>
-    let shortLink = "";
-    async function startVerification() {
-      const res = await fetch('/.netlify/functions/generate-link');
-      const data = await res.json();
-      shortLink = data.shortUrl;
-      document.getElementById('accessBtn').setAttribute('onclick', `window.location.href='${shortLink}'`);
-      document.getElementById('linkSection').style.display = 'block';
+    const key = new URLSearchParams(window.location.search).get("key");
+
+    if (key === "unlocked") {
+      const expiry = Date.now() + 24 * 60 * 60 * 1000;
+      localStorage.setItem("verified_access", expiry.toString());
+      window.location.href = "/index.html";
+    } else {
+      const apiToken = "5fb415cd7e6b42fd8ba25416066c25f44c85587b";
+      const redirectURL = encodeURIComponent("https://alphalinkz.netlify.app/verify.html?key=unlocked");
+      const apiURL = `https://linkshortify.com/api?api=${apiToken}&url=${redirectURL}`;
+
+      fetch(apiURL)
+        .then(res => res.json())
+        .then(data => {
+          if (data.shortenedUrl) {
+            window.location.href = data.shortenedUrl;
+          } else {
+            document.body.innerHTML = `<h2>Error: ${data.message || "Shortening failed"}</h2>`;
+          }
+        })
+        .catch(err => {
+          console.error(err);
+          document.body.innerHTML = "<h2>Network error. Try again later.</h2>";
+        });
     }
   </script>
+  <style>
+    body {
+      background: #121212;
+      color: white;
+      font-family: sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+    h2 { text-align: center; }
+  </style>
+</head>
+<body>
+  <h2>Verifying your access...</h2>
 </body>
 </html>
