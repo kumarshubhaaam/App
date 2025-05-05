@@ -68,11 +68,25 @@
   </div>
 
   <script>
-    // Block access if "key" is missing in URL
     const urlParams = new URLSearchParams(window.location.search);
-    const accessKey = urlParams.get('key');
+    const urlKey = urlParams.get('key');
 
-    if (!accessKey) {
+    // Store key in localStorage and set expiry
+    if (urlKey) {
+      localStorage.setItem('accessKey', urlKey);
+      localStorage.setItem('keyExpiry', Date.now() + 24 * 60 * 60 * 1000); // 24 hours
+
+      // Remove ?key=... from URL
+      history.replaceState(null, "", window.location.pathname);
+    }
+
+    // Validate stored key and expiry
+    const storedKey = localStorage.getItem('accessKey');
+    const expiry = localStorage.getItem('keyExpiry');
+
+    if (!storedKey || !expiry || Date.now() > Number(expiry)) {
+      localStorage.removeItem('accessKey');
+      localStorage.removeItem('keyExpiry');
       window.location.href = "verify.html";
     }
 
