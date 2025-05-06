@@ -7,11 +7,7 @@
   <title>Daily Dose</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
   <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
     body {
       background: #121212;
       color: #fff;
@@ -33,9 +29,7 @@
       font-weight: 700;
       color: #fff;
     }
-    .logo span:first-child {
-      color: #00ffc8;
-    }
+    .logo span:first-child { color: #00ffc8; }
     .section-wrapper {
       padding: 2rem 1rem 0 1rem;
       text-align: center;
@@ -67,21 +61,21 @@
     .card {
       background: #1c1c1c;
       border-radius: 15px;
-      overflow: hidden;
       box-shadow: 0 0 10px rgba(0,255,200,0.2);
-      transition: transform 0.6s ease, box-shadow 0.6s ease, border 0.6s ease, opacity 0.6s ease;
+      transition: transform 0.3s ease, box-shadow 0.3s ease, border 0.3s ease;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
       align-items: center;
       padding: 1rem;
-      opacity: 0; /* Start with hidden state */
-      transform: translateY(50px); /* Start with slight offset */
-      border: 2px solid transparent; /* Default border color */
+      opacity: 0;
+      transform: translateY(50px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+      border: 2px solid transparent;
     }
     .card.visible {
-      opacity: 1; /* Fade in when in view */
-      transform: translateY(0); /* Move into normal position */
+      opacity: 1;
+      transform: translateY(0);
     }
     .card img {
       width: 100%;
@@ -92,12 +86,6 @@
     }
     .card h3 {
       font-size: 1.3rem;
-      margin-bottom: 0.5rem;
-      text-align: center;
-    }
-    .card p {
-      font-size: 1rem;
-      color: #ccc;
       margin-bottom: 1rem;
       text-align: center;
     }
@@ -118,9 +106,9 @@
       box-shadow: 0 0 10px #00ffc8, 0 0 20px #00ffc8;
     }
     .card:hover {
-      transform: translateY(-10px); /* Upward animation */
-      box-shadow: 0 0 20px rgba(0,255,200,0.7), 0 0 30px rgba(0,255,200,0.5); /* Existing glow */
-      border: 2px solid #00ffc8; /* Solid border with teal color */
+      transform: translateY(-10px);
+      box-shadow: 0 0 20px rgba(0,255,200,0.7), 0 0 30px rgba(0,255,200,0.5);
+      border: 2px solid #00ffc8;
     }
     .copyright-footer {
       text-align: center;
@@ -129,7 +117,6 @@
       background: #1c1c1c;
       margin-top: 2rem;
     }
-    /* Particles Canvas */
     #particles-bg {
       position: fixed;
       top: 0;
@@ -143,7 +130,6 @@
 </head>
 
 <body>
-
 <canvas id="particles-bg"></canvas>
 
 <header>
@@ -155,75 +141,31 @@
 </div>
 
 <section class="grid">
-  <!-- 10 Posts -->
+  <!-- Dummy posts (categories removed) -->
   <div class="card">
-    <img src="https://generatepress-cool-blue.theme9.store/wp-content/uploads/2021/12/Cool-blue-.png" alt="Video 1" />
-    <h3>Video Title 1</h3>
-    <p>Description for video 1.</p>
-    <button onclick="window.open('#', '_blank')">Telegram Bot</button>
+    <img src="https://placehold.co/300x180" alt="Video 1" />
+    <h3>Funny Office Prank</h3>
+    <button onclick="window.open('https://t.me/example1', '_blank')">Watch on Telegram</button>
   </div>
-  
   <div class="card">
-    <img src="https://generatepress-cool-blue.theme9.store/wp-content/uploads/2021/12/Cool-blue-.png" alt="Video 2" />
-    <h3>Video Title 2</h3>
-    <p>Description for video 2.</p>
-    <button onclick="window.open('#', '_blank')">Telegram Bot</button>
+    <img src="https://placehold.co/300x180" alt="Video 2" />
+    <h3>Morning Motivation</h3>
+    <button onclick="window.open('https://t.me/example2', '_blank')">Watch on Telegram</button>
   </div>
-
   <div class="card">
-    <img src="https://generatepress-cool-blue.theme9.store/wp-content/uploads/2021/12/Cool-blue-.png" alt="Video 3" />
-    <h3>Video Title 3</h3>
-    <p>Description for video 3.</p>
-    <button onclick="window.open('#', '_blank')">Telegram Bot</button>
+    <img src="https://placehold.co/300x180" alt="Video 3" />
+    <h3>Dance Challenge 2025</h3>
+    <button onclick="window.open('https://t.me/example3', '_blank')">Watch on Telegram</button>
   </div>
-
   <div class="card">
-    <img src="https://generatepress-cool-blue.theme9.store/wp-content/uploads/2021/12/Cool-blue-.png" alt="Video 4" />
-    <h3>Video Title 4</h3>
-    <p>Description for video 4.</p>
-    <button onclick="window.open('#', '_blank')">Telegram Bot</button>
+    <img src="https://placehold.co/300x180" alt="Video 4" />
+    <h3>Best Fails Compilation</h3>
+    <button onclick="window.open('https://t.me/example4', '_blank')">Watch on Telegram</button>
   </div>
-
   <div class="card">
-    <img src="https://generatepress-cool-blue.theme9.store/wp-content/uploads/2021/12/Cool-blue-.png" alt="Video 5" />
-    <h3>Video Title 5</h3>
-    <p>Description for video 5.</p>
-    <button onclick="window.open('#', '_blank')">Telegram Bot</button>
-  </div>
-
-  <div class="card">
-    <img src="https://generatepress-cool-blue.theme9.store/wp-content/uploads/2021/12/Cool-blue-.png" alt="Video 6" />
-    <h3>Video Title 6</h3>
-    <p>Description for video 6.</p>
-    <button onclick="window.open('#', '_blank')">Telegram Bot</button>
-  </div>
-
-  <div class="card">
-    <img src="https://generatepress-cool-blue.theme9.store/wp-content/uploads/2021/12/Cool-blue-.png" alt="Video 7" />
-    <h3>Video Title 7</h3>
-    <p>Description for video 7.</p>
-    <button onclick="window.open('#', '_blank')">Telegram Bot</button>
-  </div>
-
-  <div class="card">
-    <img src="https://generatepress-cool-blue.theme9.store/wp-content/uploads/2021/12/Cool-blue-.png" alt="Video 8" />
-    <h3>Video Title 8</h3>
-    <p>Description for video 8.</p>
-    <button onclick="window.open('#', '_blank')">Telegram Bot</button>
-  </div>
-
-  <div class="card">
-    <img src="https://generatepress-cool-blue.theme9.store/wp-content/uploads/2021/12/Cool-blue-.png" alt="Video 9" />
-    <h3>Video Title 9</h3>
-    <p>Description for video 9.</p>
-    <button onclick="window.open('#', '_blank')">Telegram Bot</button>
-  </div>
-
-  <div class="card">
-    <img src="https://generatepress-cool-blue.theme9.store/wp-content/uploads/2021/12/Cool-blue-.png" alt="Video 10" />
-    <h3>Video Title 10</h3>
-    <p>Description for video 10.</p>
-    <button onclick="window.open('#', '_blank')">Telegram Bot</button>
+    <img src="https://placehold.co/300x180" alt="Video 5" />
+    <h3>Daily Fitness Tips</h3>
+    <button onclick="window.open('https://t.me/example5', '_blank')">Watch on Telegram</button>
   </div>
 </section>
 
@@ -231,9 +173,7 @@
   &copy; 2025 Daily Dose. All rights reserved.
 </div>
 
-<!-- Particles JavaScript -->
 <script>
-// Particles Background
 const canvas = document.getElementById('particles-bg');
 const ctx = canvas.getContext('2d');
 let particles = [];
@@ -285,48 +225,31 @@ function animateParticles() {
 
 initParticles();
 animateParticles();
-
-// Scroll Animation (improved trigger & restrict upward scroll)
-const cards = document.querySelectorAll('.card');
-let scrollDirection = 0;
-
-function checkScroll() {
-  const triggerBottom = window.innerHeight * 0.75; // Trigger animation at 75% of the viewport height
-  const currentScroll = window.scrollY;
-
-  // Detect scroll direction
-  if (currentScroll > scrollDirection) {
-    // Scrolling down
-    cards.forEach((card, idx) => {
-      const cardTop = card.getBoundingClientRect().top;
-      if (cardTop < triggerBottom) {
-        setTimeout(() => {
-          card.classList.add('visible');
-        }, idx * 100); // Staggered animation
-      }
-    });
-  } else {
-    // Scrolling up (do not trigger animation)
-    cards.forEach((card) => {
-      const cardTop = card.getBoundingClientRect().top;
-      if (cardTop > triggerBottom) {
-        card.classList.remove('visible');
-      }
-    });
-  }
-
-  scrollDirection = currentScroll; // Update scroll direction
-}
-
-window.addEventListener('scroll', checkScroll);
-window.addEventListener('load', checkScroll);
 const urlParams = new URLSearchParams(window.location.search);
     const accessKey = urlParams.get('key');
 
     if (!accessKey) {
       window.location.href = "verify.html";
     }
-</script>
+// Scroll animation for cards
+function triggerScrollAnimation() {
+  const cards = document.querySelectorAll('.card');
+  function checkScroll() {
+    const triggerBottom = window.innerHeight * 0.9;
+    cards.forEach(card => {
+      const cardTop = card.getBoundingClientRect().top;
+      if (cardTop < triggerBottom) {
+        card.classList.add('visible');
+      } else {
+        card.classList.remove('visible');
+      }
+    });
+  }
+  window.addEventListener('scroll', checkScroll);
+  checkScroll();
+}
+triggerScrollAnimation();
 
+</script>
 </body>
 </html>
