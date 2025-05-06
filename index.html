@@ -145,27 +145,27 @@
   <div class="card">
     <img src="https://placehold.co/300x180" alt="Video 1" />
     <h3>Funny Office Prank</h3>
-    <button onclick="window.open('https://t.me/example1', '_blank')">Watch on Telegram</button>
+    <button onclick="window.location.href='stream.html?video=https://streamtape.com/v/bee6734wjYsDZ2/VID_20250427_153549610.mp4'">Watch Now</button>
   </div>
   <div class="card">
     <img src="https://placehold.co/300x180" alt="Video 2" />
     <h3>Morning Motivation</h3>
-    <button onclick="window.open('https://t.me/example2', '_blank')">Watch on Telegram</button>
+    <button onclick="window.location.href='stream.html?video=https://streamtape.com/v/bee6734wjYsDZ2/VID_20250427_153549610.mp4'">Watch Now</button>
   </div>
   <div class="card">
     <img src="https://placehold.co/300x180" alt="Video 3" />
     <h3>Dance Challenge 2025</h3>
-    <button onclick="window.open('https://t.me/example3', '_blank')">Watch on Telegram</button>
+    <button onclick="window.location.href='stream.html?video=https://streamtape.com/v/abc123xyz'">Watch Now</button>
   </div>
   <div class="card">
     <img src="https://placehold.co/300x180" alt="Video 4" />
     <h3>Best Fails Compilation</h3>
-    <button onclick="window.open('https://t.me/example4', '_blank')">Watch on Telegram</button>
+    <button onclick="window.location.href='stream.html?video=https://streamtape.com/v/abc123xyz'">Watch Now</button>
   </div>
   <div class="card">
     <img src="https://placehold.co/300x180" alt="Video 5" />
     <h3>Daily Fitness Tips</h3>
-    <button onclick="window.open('https://t.me/example5', '_blank')">Watch on Telegram</button>
+    <button onclick="window.location.href='stream.html?video=https://streamtape.com/v/abc123xyz'">Watch Now</button>
   </div>
 </section>
 
@@ -225,12 +225,23 @@ function animateParticles() {
 
 initParticles();
 animateParticles();
-const urlParams = new URLSearchParams(window.location.search);
-    const accessKey = urlParams.get('key');
 
-    if (!accessKey) {
-      window.location.href = "verify.html";
-    }
+// 24-hour key validation
+const urlParams = new URLSearchParams(window.location.search);
+const accessKey = urlParams.get('key');
+const savedKey = localStorage.getItem('accessKey');
+const savedTime = localStorage.getItem('accessTime');
+const now = Date.now();
+
+if (accessKey) {
+  localStorage.setItem('accessKey', accessKey);
+  localStorage.setItem('accessTime', now.toString());
+} else {
+  if (!savedKey || !savedTime || (now - parseInt(savedTime)) > 86400000) {
+    window.location.href = "verify.html";
+  }
+}
+
 // Scroll animation for cards
 function triggerScrollAnimation() {
   const cards = document.querySelectorAll('.card');
@@ -249,7 +260,6 @@ function triggerScrollAnimation() {
   checkScroll();
 }
 triggerScrollAnimation();
-
 </script>
 </body>
 </html>
