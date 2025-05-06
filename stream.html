@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Stream Video</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      background: #121212;
+      color: #fff;
+      font-family: 'Inter', sans-serif;
+      overflow-x: hidden;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    header {
+      width: 100%;
+      padding: 1rem;
+      background: #1c1c1c;
+      text-align: center;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.5);
+    }
+    .logo {
+      font-size: 1.8rem;
+      font-weight: 700;
+    }
+    .logo span:first-child { color: #00ffc8; }
+    .container {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem 1rem;
+    }
+    iframe {
+      width: 100%;
+      max-width: 900px;
+      height: 500px;
+      border: none;
+      border-radius: 15px;
+      box-shadow: 0 0 30px rgba(0,255,200,0.2);
+    }
+    .back-link {
+      margin-top: 1.5rem;
+      color: #00ffc8;
+      text-decoration: none;
+      font-weight: bold;
+      transition: color 0.2s ease;
+    }
+    .back-link:hover {
+      color: #00cfa0;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="logo"><span>DAILY</span><span>DOSE</span></div>
+</header>
+
+<div class="container">
+  <iframe id="video-frame" allowfullscreen></iframe>
+  <a href="index.html" class="back-link">← Back to All Videos</a>
+</div>
+
+<script>
+  const urlParams = new URLSearchParams(window.location.search);
+  const videoURL = urlParams.get('video');
+
+  if (!videoURL || !videoURL.includes("streamtape.com")) {
+    document.getElementById("video-frame").outerHTML = "<p style='color:red;text-align:center;'>Invalid or missing Streamtape link.</p>";
+  } else {
+    const embedURL = videoURL.replace("/v/", "/e/");
+    document.getElementById("video-frame").src = embedURL;
+  }
+</script>
+
+</body>
+</html>
