@@ -1,0 +1,14 @@
+[
+  {
+    "title": "Post Title 1",
+    "image": "https://example.com/image1.jpg",
+    "link": "https://example.com/link1",
+    "timestamp": "2025-05-01T12:00:00Z"
+  },
+  {
+    "title": "Post Title 2",
+    "image": "https://example.com/image2.jpg",
+    "link": "https://example.com/link2",
+    "timestamp": "2025-04-20T14:00:00Z"
+  }
+]
