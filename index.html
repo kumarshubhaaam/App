@@ -99,26 +99,12 @@
       font-weight: bold;
       font-size: 1rem;
       cursor: pointer;
-      transition: all 0.3s ease;
-      position: relative;
-      overflow: hidden;
-    }
-    .card button::after {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: -100%;
-      width: 100%;
-      height: 100%;
-      background: rgba(0, 255, 200, 0.2);
-      transition: left 0.3s ease;
+      transition: background 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
     }
     .card button:hover {
+      background: linear-gradient(90deg, #00ffc8, #00cfa0);
+      box-shadow: 0 0 10px #00ffc8, 0 0 25px #00cfa0;
       transform: scale(1.05);
-      box-shadow: 0 0 15px #00ffc8, 0 0 25px #00ffc8;
-    }
-    .card button:hover::after {
-      left: 0;
     }
     .card:hover {
       transform: translateY(-10px);
@@ -155,26 +141,23 @@
   <h1 class="section-title">All Videos</h1>
 </div>
 
-<section class="grid" id="video-container">
-  <!-- Dynamic cards from JSON will appear here -->
-</section>
+<section class="grid" id="postContainer"></section>
 
 <div class="copyright-footer">
   &copy; 2025 Alpha Linkz. All rights reserved.
 </div>
 
 <script>
+// Particle background
 const canvas = document.getElementById('particles-bg');
 const ctx = canvas.getContext('2d');
 let particles = [];
-
 function resize() {
   canvas.width = window.innerWidth;
   canvas.height = window.innerHeight;
 }
 window.addEventListener('resize', resize);
 resize();
-
 class Particle {
   constructor() {
     this.x = Math.random() * canvas.width;
@@ -196,7 +179,6 @@ class Particle {
     if (this.y < 0 || this.y > canvas.height) this.speedY *= -1;
   }
 }
-
 function initParticles() {
   particles = [];
   for (let i = 0; i < 150; i++) {
@@ -214,38 +196,7 @@ function animateParticles() {
 initParticles();
 animateParticles();
 
-// Fetch from JSON file in GitHub repo
-async function fetchJSONData() {
-  const url = 'https://github.com/kumarshubhaaam/App/blob/7505983c0f2e1cde47557e84ad73fb5ccecd0954/posts.json'; // Update with your GitHub file URL
-
-  try {
-    const res = await fetch(url);
-    const data = await res.json();
-
-    const sortedPosts = data.sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp));
-
-    const container = document.getElementById("video-container");
-
-    sortedPosts.forEach(({ title, image, link }) => {
-      const card = document.createElement("div");
-      card.className = "card";
-      card.innerHTML = `
-        <img src="${image}" alt="${title}" />
-        <h3>${title}</h3>
-        <button onclick="window.location.href='${link}'">Watch Now</button>
-      `;
-      container.appendChild(card);
-    });
-
-    triggerScrollAnimation();
-  } catch (err) {
-    console.error("Failed to fetch JSON:", err);
-  }
-}
-
-fetchJSONData();
-
-// Scroll animation
+// Scroll animation for cards
 function triggerScrollAnimation() {
   const cards = document.querySelectorAll('.card');
   function checkScroll() {
@@ -262,6 +213,29 @@ function triggerScrollAnimation() {
   window.addEventListener('scroll', checkScroll);
   checkScroll();
 }
+
+// Load posts from JSON
+async function loadPosts() {
+  const res = await fetch('https://raw.githubusercontent.com/kumarshubhaaam/App/main/posts.json');
+  const posts = await res.json();
+
+  posts.sort((a, b) => new Date(b.date) - new Date(a.date));
+
+  const container = document.getElementById('postContainer');
+  posts.forEach(post => {
+    const card = document.createElement('div');
+    card.className = 'card';
+    card.innerHTML = `
+      <img src="${post.image}" alt="${post.title}" />
+      <h3>${post.title}</h3>
+      <button onclick="window.location.href='${post.link}'">Watch Now</button>
+    `;
+    container.appendChild(card);
+  });
+
+  triggerScrollAnimation();
+}
+loadPosts();
 </script>
 </body>
 </html>
