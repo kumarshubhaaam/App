@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <meta name="theme-color" content="#1c1c1c">
-  <title>Daily Dose</title>
+  <title>Alpha Linkz</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -99,11 +99,26 @@
       font-weight: bold;
       font-size: 1rem;
       cursor: pointer;
-      transition: background 0.3s ease, box-shadow 0.3s ease;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+    .card button::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 255, 200, 0.2);
+      transition: left 0.3s ease;
     }
     .card button:hover {
-      background: #00cfa0;
-      box-shadow: 0 0 10px #00ffc8, 0 0 20px #00ffc8;
+      transform: scale(1.05);
+      box-shadow: 0 0 15px #00ffc8, 0 0 25px #00ffc8;
+    }
+    .card button:hover::after {
+      left: 0;
     }
     .card:hover {
       transform: translateY(-10px);
@@ -133,44 +148,19 @@
 <canvas id="particles-bg"></canvas>
 
 <header>
-  <div class="logo"><span>DAILY</span><span>DOSE</span></div>
+  <div class="logo"><span>ALPHA</span> <span>LINKZ</span></div>
 </header>
 
 <div class="section-wrapper">
   <h1 class="section-title">All Videos</h1>
 </div>
 
-<section class="grid">
-  <!-- Dummy posts (categories removed) -->
-  <div class="card">
-    <img src="https://placehold.co/300x180" alt="Video 1" />
-    <h3>Funny Office Prank</h3>
-    <button onclick="window.location.href='stream.html?video=https://streamtape.com/v/yj9JglDPDMI1Xyw/933.mp4'">Watch Now</button>
-  </div>
-  <div class="card">
-    <img src="https://placehold.co/300x180" alt="Video 2" />
-    <h3>Morning Motivation</h3>
-    <button onclick="window.location.href='stream.html?video=https://streamtape.com/v/bee6734wjYsDZ2/VID_20250427_153549610.mp4'">Watch Now</button>
-  </div>
-  <div class="card">
-    <img src="https://placehold.co/300x180" alt="Video 3" />
-    <h3>Dance Challenge 2025</h3>
-    <button onclick="window.location.href='stream.html?video=https://streamtape.com/v/abc123xyz'">Watch Now</button>
-  </div>
-  <div class="card">
-    <img src="https://placehold.co/300x180" alt="Video 4" />
-    <h3>Best Fails Compilation</h3>
-    <button onclick="window.location.href='stream.html?video=https://streamtape.com/v/abc123xyz'">Watch Now</button>
-  </div>
-  <div class="card">
-    <img src="https://placehold.co/300x180" alt="Video 5" />
-    <h3>Daily Fitness Tips</h3>
-    <button onclick="window.location.href='stream.html?video=https://streamtape.com/v/abc123xyz'">Watch Now</button>
-  </div>
+<section class="grid" id="video-container">
+  <!-- Dynamic cards from JSON will appear here -->
 </section>
 
 <div class="copyright-footer">
-  &copy; 2025 Daily Dose. All rights reserved.
+  &copy; 2025 Alpha Linkz. All rights reserved.
 </div>
 
 <script>
@@ -213,7 +203,6 @@ function initParticles() {
     particles.push(new Particle());
   }
 }
-
 function animateParticles() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
   particles.forEach(p => {
@@ -222,27 +211,41 @@ function animateParticles() {
   });
   requestAnimationFrame(animateParticles);
 }
-
 initParticles();
 animateParticles();
 
-// 24-hour key validation
-const urlParams = new URLSearchParams(window.location.search);
-const accessKey = urlParams.get('key');
-const savedKey = localStorage.getItem('accessKey');
-const savedTime = localStorage.getItem('accessTime');
-const now = Date.now();
+// Fetch from JSON file in GitHub repo
+async function fetchJSONData() {
+  const url = 'https://raw.githubusercontent.com/your-username/your-repository/main/posts.json'; // Update with your GitHub file URL
 
-if (accessKey) {
-  localStorage.setItem('accessKey', accessKey);
-  localStorage.setItem('accessTime', now.toString());
-} else {
-  if (!savedKey || !savedTime || (now - parseInt(savedTime)) > 86400000) {
-    window.location.href = "verify.html";
+  try {
+    const res = await fetch(url);
+    const data = await res.json();
+
+    const sortedPosts = data.sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp));
+
+    const container = document.getElementById("video-container");
+
+    sortedPosts.forEach(({ title, image, link }) => {
+      const card = document.createElement("div");
+      card.className = "card";
+      card.innerHTML = `
+        <img src="${image}" alt="${title}" />
+        <h3>${title}</h3>
+        <button onclick="window.location.href='${link}'">Watch Now</button>
+      `;
+      container.appendChild(card);
+    });
+
+    triggerScrollAnimation();
+  } catch (err) {
+    console.error("Failed to fetch JSON:", err);
   }
 }
 
-// Scroll animation for cards
+fetchJSONData();
+
+// Scroll animation
 function triggerScrollAnimation() {
   const cards = document.querySelectorAll('.card');
   function checkScroll() {
@@ -259,7 +262,6 @@ function triggerScrollAnimation() {
   window.addEventListener('scroll', checkScroll);
   checkScroll();
 }
-triggerScrollAnimation();
 </script>
 </body>
 </html>
